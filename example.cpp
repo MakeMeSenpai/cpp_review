@@ -47,6 +47,7 @@ void types() {
     string dog = "-Dog";
     // opperations
     cout << "Size of str: " << myName.size() << endl;
+    // returns boolean 0(False), 1(True)
     cout << "Is it empty?: " << myName.empty() << endl;
     myName.insert(0, superChar);
     myName.append(dog);
@@ -60,12 +61,17 @@ void types() {
     cout << dog.compare(myName) << endl;
     // returns 0 becuase it is equal
     cout << dog.compare(dog) << endl;
-    // assign copies
-    string firstName = myName.assign(myName, 0, 3);
+    // assign copies - assign([str], startingIndex, numOfChars)
+    string firstName = myName.assign(myName, 7, 3);
     cout << "Assigned Copy: " << firstName << endl;
-    // search strings
-    int dogIndex = myName.find("Dog");
-    cout << "Where is the dog? " << dogIndex << endl;
+    // erase and replace parts of a string - (startingIndex, numOfChars, [str])
+    // cout << myName.size();
+    // myName.erase(7, 0);
+    // myName.replace(3, 4, " Cat");
+    // search strings - find([str], startingIndex)
+    int catIndex = myName.find("Cat", 0);
+    // will return value or -1 if cannot find
+    cout << "Where is the Cat? " << catIndex << endl;
 
     /* Arrays */
     int favNums[5];
