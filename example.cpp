@@ -65,13 +65,13 @@ void types() {
     string firstName = firstName.assign(myName, 7, 3);
     cout << "Assigned Copy: " << firstName << endl;
     // erase and replace parts of a string - (startingIndex, numOfChars, [str])
-    myName.erase(0, 7);
+    myName.erase(0, 6);
     cout << "erase " << myName << endl;
-    myName.replace(3, 4, " Cat");
+    myName.replace(2, 4, " Cat");
     cout << "replace " << myName << endl;
     // search strings - find([str], startingIndex)
     int catIndex = myName.find("Cat", 0);
-    // will return value or -1 if cannot find
+    // will return value or -1 if cannot find (does not count 0)
     cout << "Where is the Cat? " << catIndex << endl;
 
     /* Arrays */
@@ -111,9 +111,6 @@ void types() {
     cout << "Vector Empty: " << lotteryNumbersVect.empty() << endl;
     cout << "Vector Size: " << lotteryNumbersVect.size() << endl;
 }
-
-// // power function 
-// #include <bits/stdc++.h>
 
 /* Calculations */
 void calc(){
@@ -193,9 +190,102 @@ void calc(){
     cout << "You Win!" << endl;
 }
 
-// initializer for our voids/functions
+/* Read/Write Files (File.IO) */
+int readWrite(){
+    /* note that anything outside of asci value is too big for
+    defualt chars.. sorry not sorry umlauts - does take away 
+    from the example a little bit tho. */
+    string deutschland = "aae, ooo, uuu, szts";
+    // creates our file (with var name writer)
+    ofstream writer("almenia.txt");
+    // checks if file was written
+    if (! writer) {
+        cout << "Error, line 200." << endl;
+        return 0;
+    } else {
+        // writes into our file
+        writer << "Hardest Letters to pronounce" << endl;
+        writer << deutschland << endl;
+        writer.close();
+    }
+    // ofstream: output file stream
+    // appends our file
+    ofstream appender("almenia.txt", ios::app);
+    if (! writer) {
+        cout << "Error, line 212." << endl;
+        return 0;
+    } else {
+        // appends our file
+        appender << "\n Almenia is Deutschland in spanish btw." << endl;
+        appender.close();
+    }
+    /* other ofstream readers */
+    // // reads your file as if it was binary
+    // ofstream oneZero("almenia.txt", ios::binary);
+    // // Opens file to read input
+    // ofstream appender("almenia.txt", ios::in);
+    // // uses default reader
+    // ofstream appender("almenia.txt", ios::trunc);
+    // // Opens file to write output
+    // ofstream appender("almenia.txt", ios::out);
+    char letter;
+    // reads our file, if: input file stream
+    ifstream reader("almenia.txt");
+    if (! reader) {
+        cout << "Error, Falty Write." << endl;
+        return 0;
+    } else {
+        // for each char, if it's no the end of file
+        for (int i = 0; ! reader.eof(); i++) {
+            // collect each character
+            reader.get(letter);
+            // print it out
+            cout << letter;
+        }
+        // then close file
+        reader.close();
+        cout << endl;
+    }
+}
+
+/* Functions, Voids, & Classes */
+// this is a function in c++, parameters must contain data-type
+int math(int a, int b = 0) { // b is an optional param
+    int c = a + b;
+    return c;
+}
+// they can share a name, but must have different params
+int math(int a, int b, int c) {
+    // our return statement can calculate
+    return a + b + c;
+}
+/* functions must also contain a data-type specifying what is
+ expected to return. This is a recursion function
+ and is usually named with get[Name] */
+string getZed(int z = 0){
+    char germanAlpha[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+     'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+     'U', 'V', 'W', 'X', 'Y', 'Z'}; // 'Ä', 'Ö', 'Ü', 'ß'};
+    if (germanAlpha[z] == 'Z') {
+        return "Found Me!";
+    } else {
+        getZed(z++);
+    }
+}
+
+// prints out our values
+int print() {
+    // cout << << << endl;
+    cout << "First math: " << math(1) << endl;
+    cout << "Second math: " << math(3, 5, 7) << endl;
+    cout << "getZed: " << getZed() << endl;
+}
+
+// Runs our program!
 int main(){
     types();
     calc();
+    readWrite();
+    print();
     return 0;
 }
