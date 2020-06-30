@@ -62,12 +62,13 @@ void types() {
     // returns 0 becuase it is equal
     cout << dog.compare(dog) << endl;
     // assign copies - assign([str], startingIndex, numOfChars)
-    string firstName = myName.assign(myName, 7, 3);
+    string firstName = firstName.assign(myName, 7, 3);
     cout << "Assigned Copy: " << firstName << endl;
     // erase and replace parts of a string - (startingIndex, numOfChars, [str])
-    // cout << myName.size();
-    // myName.erase(7, 0);
-    // myName.replace(3, 4, " Cat");
+    myName.erase(0, 7);
+    cout << "erase " << myName << endl;
+    myName.replace(3, 4, " Cat");
+    cout << "replace " << myName << endl;
     // search strings - find([str], startingIndex)
     int catIndex = myName.find("Cat", 0);
     // will return value or -1 if cannot find
@@ -85,6 +86,30 @@ void types() {
     // this will print out N
     cout << "myChar: " << chars[1][2] << endl;
 
+    /* Vectors */
+    // ¡New Concept! -acts like arrays, with adjustable sizes
+    vector <int> lotteryNumbersVect(10);
+    // above is vector <[data-type]> [var-name](initial size)
+    int lotteryNumbersArray[5] = {2, 4, 6, 8, 10};
+    // now we add our array to the biggining of our vector
+    lotteryNumbersVect.insert(lotteryNumbersVect.begin(),
+        lotteryNumbersArray, lotteryNumbersArray + 3);
+    /* vector.insert(where we would like to insert, from what
+     we'd like to take from, [optional] then specifies how many
+     from that list ) */
+    // we can do more with this such as:
+    // Inserting -from the begining of the vector to index 2
+    lotteryNumbersVect.insert(lotteryNumbersVect.begin() + 2, 12);
+    // appending to the end of our vector
+    lotteryNumbersVect.push_back(14);
+    // removing the last item of our vector
+    lotteryNumbersVect.pop_back();
+    // vectors have special dot functions compared to other data-types
+    cout << "Vector Front: " << lotteryNumbersVect.front() << endl;
+    cout << "Vector Index: " << lotteryNumbersVect.at(2) << endl;
+    cout << "Vector Back: " << lotteryNumbersVect.back() << endl;
+    cout << "Vector Empty: " << lotteryNumbersVect.empty() << endl;
+    cout << "Vector Size: " << lotteryNumbersVect.size() << endl;
 }
 
 // // power function 
