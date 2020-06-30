@@ -262,14 +262,14 @@ int math(int a, int b, int c) {
 /* functions must also contain a data-type specifying what is
  expected to return. This is a recursion function
  and is usually named with get[Name] */
-string getZed(int z = 0){
+int getZed(int z = 0){
     char germanAlpha[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
      'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
      'U', 'V', 'W', 'X', 'Y', 'Z'}; // 'Ä', 'Ö', 'Ü', 'ß'};
     if (germanAlpha[z] == 'Z') {
-        return "Found Me!";
+        return z;
     } else {
-        getZed(z++);
+        getZed(z+1);
     }
 }
 
