@@ -1,8 +1,8 @@
-/* these are our libraries 
-- notice how camelCase is used */
+// these are our libraries - notice how camelCase is use
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
 #include <fstream>
 
 // this is a shortcut
@@ -142,7 +142,7 @@ void calc(){
         cout << "if/else: " << five << endl;
     }
     
-    /* switch - check for multiple options */
+    /* switch - checks for multiple options */
     int options = 2;
     switch(options) {
         case 0:
@@ -163,9 +163,26 @@ void calc(){
     int question = (five > two) ? 1 : 0;
     cout << question << endl;
 
+    /* Exception Handling */
+    // used to catch potential errors (like dividing by zero)
+    int denominator = 0;
+    // Tries potentailly damaging pieces of code inside a try block
+    try {
+        // if this code fails then it will not run
+        if (denominator != 0) {
+            cout << 2/denominator << endl;
+        // sense the value is zero we will throw our value
+        } else throw (denominator);
+    // every throw needs a catcher, in which will run successful code
+    } catch (int denominator) {
+        // error codes are also typically placed here. warning users of dangerous actions
+        cout << "Error, line 167: Numerator cannot be divided by a denominator of  "
+         << denominator << endl;
+    }
+
     /* for/while */
     for (int i = 1; i <= 10; i++) {
-        cout << i;
+        cout << i << ", ";
     }
     cout << endl;
     // will give us (0-99) + 1
@@ -248,8 +265,9 @@ int readWrite(){
     }
 }
 
-/* Functions, Voids, & Classes */
-// this is a function in c++, parameters must contain data-type
+/* Object Oriented Programming */
+/* Functions */
+// this is a function in c++, and must contain data-type
 int math(int a, int b = 0) { // b is an optional param
     int c = a + b;
     return c;
@@ -262,15 +280,48 @@ int math(int a, int b, int c) {
 /* functions must also contain a data-type specifying what is
  expected to return. This is a recursion function
  and is usually named with get[Name] */
-int getZed(int z = 0){
+int getZed(int z = 0) {
     char germanAlpha[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
      'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
      'U', 'V', 'W', 'X', 'Y', 'Z'}; // 'Ä', 'Ö', 'Ü', 'ß'};
     if (germanAlpha[z] == 'Z') {
-        return z;
+        return 1;
+    } else if (26 == z) {
+        return 0;
     } else {
-        getZed(z+1);
+        cout << "searching..." << germanAlpha[z] << endl;
+        return getZed(z+1);
     }
+}
+/* Pointers */
+//const char* to return str (act like a tupel).
+const char* str() {
+    // above you can see that * are used for pointers 
+    if (getZed() == 1) {
+        return "Found Me!";
+    } else {
+        return "Not Found";
+    }
+}
+
+string bDay(int guess) {
+    int birth= 73101;
+    // & are used to find allocated data points
+    int* where = &birth;
+    // we used string stream to combin our variable with our str
+    ostringstream day;
+    day << "My birthday can be located at " << where;
+    // we then redefine the object as a string to our str var date
+    string date = day.str();
+    // and if the user doesn't enter 10, returns it.
+    if (guess != 10) {
+        return date;
+    }
+    // by placing * before the var, we can get it's real value
+    string there = to_string(*where);
+    /* note that we must redefine the int into a string in order to 
+    correspond with functions datatype */
+    return there;
 }
 
 // prints out our values
@@ -278,7 +329,12 @@ int print() {
     // cout << << << endl;
     cout << "First math: " << math(1) << endl;
     cout << "Second math: " << math(3, 5, 7) << endl;
-    cout << "getZed: " << getZed() << endl;
+    cout << "getZed: \n" << str() << endl;
+    cout << "pick another number 1-10: "; 
+    string guessed;
+    getline(cin, guessed);
+    int guess = stoi(guessed);
+    cout << "what is your birthday? " << bDay(guess) << endl;
 }
 
 // Runs our program!
