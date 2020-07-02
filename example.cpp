@@ -273,7 +273,7 @@ int math(int a, int b = 0) { // b is an optional param
     return c;
 }
 // they can share a name, but must have different params
-int math(int a, int b, int c) {
+int math(int a, int b, int c) { // this is known as overloading
     // our return statement can calculate
     return a + b + c;
 }
@@ -324,6 +324,169 @@ string bDay(int guess) {
     return there;
 }
 
+/* Voids */
+// blocks of code that don't return anything.
+void helper() {
+    cout << "I am a void in code" << endl;
+}
+
+/* Classes */
+class Zelda {
+    // contains private vars that can only be changed within the class
+    private:
+        string gen;
+        string costume = "Bratty Pirate";
+        string voice = "no";
+        // static is used for outside methods
+        static int numOfKidnaps;
+    // public contains our methods that is public
+    public:
+        // incapsolation is used to protect stored values
+        string getGen() {
+            string set;
+            bool triforce = false;
+            while (triforce == false) {
+                cout << "Choose a TLOZ Generation (OOT, TWW, BOTW, ALTTP): ";
+                getline(cin, set);
+                if (set == "OOT" || set == "TWW" || set == "BOTW" || set == "ALTTP"){
+                    triforce = true;
+                }
+            }
+            cout << "Loading results" << endl;
+            return gen = set;
+        }
+
+        string changeCostume() {
+            if (gen == "OOT") {
+                return costume = "Shieken Ninja";
+            } else if (gen == "TWW") {
+                return costume = "Bratty Pirate";
+            } else if (gen == "BOTW") {
+                return costume = "Wild/Adventurous";
+            } else if (gen == "ALTTP") {
+                return costume = "Hylian Princess";
+            } 
+        }
+
+        string isVoice() {
+            if (gen == "BOTW") {
+                return voice = "a british";
+            } else {
+                return voice = "no";
+            }
+        }
+        // this is a constructor
+        Zelda(string gen, string costume, string voice);
+        // this is a deconstructor
+        ~Zelda();
+        // this is a default constructor, created with an overwrite
+        Zelda();
+        // static method
+        static int getNum() { return numOfKidnaps; }
+        // just used to print out our stuff
+        void print();
+};
+// now we will create declarations with the scope opperator(::/:)
+int Zelda::numOfKidnaps = 0;
+// works like any other constructor, just outside of the class
+Zelda::Zelda() {
+    // must use this like javascript
+    this -> gen = gen;
+    this -> costume = costume;
+    this -> voice = voice;
+    // this will add to our static 
+    Zelda::numOfKidnaps++;
+}
+// deconstructors are necessary for deleting no longer used objects
+Zelda::~Zelda() {
+    cout << "Destroyed" << endl;
+}
+
+void Zelda::print() {
+    cout << "Kidnapped " << Zelda::numOfKidnaps << " times. In the game TLOZ: "
+     << this -> gen << ", Zelda wore the " << this -> costume << " costume, and had "
+     << this -> voice << " voice." << endl;
+}
+
+/* Super class */
+//parent class (just like a noraml class)
+class Animal {
+    private:
+        string name;
+        int age;
+    public:
+        string getName(){ return name; }
+        int getAge(){ return age; }
+        /* virtual methods */
+        virtual void weight() {
+            // simply methods that are expected to change
+            cout << "above 200lb" << endl;
+        }
+        void print() {
+            cout << "My name is " << name << ", and I am " << age 
+             << " years old." << " I weigh ";
+            weight();
+        }
+        Animal(string, int);
+        Animal();
+        ~Animal();
+};
+
+Animal::Animal(string n, int a) {
+    this -> name = n;
+    this -> age = a;
+}
+
+Animal::Animal() {
+    this -> name;
+    this -> age;
+}
+
+Animal::~Animal(){
+    cout << "Destroyed" << endl;
+}
+// child class, inherits from our parent class
+class Cow:public Animal {
+    private:
+        int legs;
+    public:
+        // we change our virtual method here
+        void weight() { cout << "I'm 120lb." << endl; }
+
+        int getLegs() {
+            string num;
+            cout << "Choose a number: ";
+            getline(cin, num);
+            int number = stoi(num);
+            cout << endl;
+            return legs = number;
+        }
+
+        void response() {
+            cout << "What do you call a cow with " << legs << "  legs?" << endl;
+            if (legs == 0) {
+                cout << "Ground Beef!" << endl;
+            } else if (legs < 4) {
+                cout << "Try Trip!" << endl;
+            } else if (legs == 4) {
+                cout << "A Plan old cow..." << endl;
+            } else {
+                cout << "A monstrosity!" << endl;
+            }
+        }
+        // note that you can just define the data types in your params
+        Cow(string, int, int);
+        // this is a defualt constructor for a child class
+        Cow() :Animal(){};
+};
+// this declares the child classes contructor
+Cow::Cow(string name, int age, int legs = 4):
+// passing parameters into it's respective parent
+Animal(name, age) {
+    // and declaring it's respective vars
+    this -> legs = legs;
+}
+
 // prints out our values
 int print() {
     // cout << << << endl;
@@ -335,6 +498,24 @@ int print() {
     getline(cin, guessed);
     int guess = stoi(guessed);
     cout << "what is your birthday? " << bDay(guess) << endl;
+    helper();
+    // creates a new object, and it's methods
+    Zelda one;
+    one.getGen();
+    one.changeCostume();
+    one.isVoice();
+    one.print();
+    //creats a new object, that inherits from a super class
+    Cow chip("Chip", 3);
+    chip.getName();
+    chip.getAge();
+    chip.print();
+    chip.getLegs();
+    chip.response();
+    // another way to create a new object without creating declarations
+    Cow *cow = new Cow;
+    cow -> getLegs();
+    cow -> response();
 }
 
 // Runs our program!
